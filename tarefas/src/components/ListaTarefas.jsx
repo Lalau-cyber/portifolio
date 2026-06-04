@@ -23,7 +23,7 @@
 
     return (
         <div className="container">
-        <h2>Minha Lista de Tarefas</h2>
+        <h2>Minha Lista de Tarefas📖</h2>
 
         {/* Input controlado: o valor vem do estado e atualiza o estado ao digitar */}
         <input
