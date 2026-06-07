@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import{FaChevronDown} from 'react-icons/fa'
 
 export default function Home(){
 // 1. As consts que guardam os nomes das tecnologias
@@ -35,7 +36,9 @@ export default function Home(){
             </p>
             </div>
             <br />
-           <div className="biografia"> <p><strong>MInha Biografia</strong></p>
+            <p className='resumo-prof'>## Resumo Profissional</p>
+           <div className="biografia"> 
+            <p className='minha-bioP'><strong>MInha Biografia</strong></p>
             <br />
             <p className='terceiro_Texto'>No ano de 2025, o Senai havia disponibilizado cursos gratis
             para as escolas estaduais e a minha era uma delas, então eu resolvi me inscrever e assim começou
@@ -47,16 +50,19 @@ export default function Home(){
             </section>
             </div>
             
-       <section >
-      <h2 >🛠️ Minha Tech Stack</h2>
+       <section className='Techs' >
+      <h2 className='minha-tech' >🛠️ Minha Tech Stack</h2>
+      
       
       <div className="caixinha_brow">
         <button className="button_front"
           onClick={() => setMostraFront(!mostraFront)} 
          
         >
-          <span  className="texto_front">🌐 Front-End (Clique para ver)</span>
-          <span>{mostraFront ? "🔼" : "🔽"}</span>
+          🌐 Front-End (Clique para ver)
+          
+            <FaChevronDown size={14}/>
+         
         </button>
         
         {mostraFront && (
@@ -75,8 +81,8 @@ export default function Home(){
           onClick={() => setMostraBack(!mostraBack)} 
         
         >
-          <span className="texto_back">⚙️ Back-End (Clique para ver)</span>
-          <span>{mostraBack ? "🔼" : "🔽"}</span>
+          ⚙️ Back-End (Clique para ver)
+          <FaChevronDown size={14}/>
         </button>
         
         {mostraBack && (
@@ -88,9 +94,10 @@ export default function Home(){
             ))}
           </div>
         )}
+    
       </div>
     </section>
-        <Link to="/projetos" style={{ border: '1px solid #6e4620', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none', color: '#fff' }}>
+        <Link className='link' to="/projetos" >
         Ver meus projetos
       </Link>
     </div>

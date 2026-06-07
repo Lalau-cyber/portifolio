@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Projetos from './pages/projetos'
 import {ProjetosDados} from './dados/ProjetosDados'
 import DetalhesProjetos from './pages/DetalhesProjeto'
+import Contato from './pages/Contato'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/projetos" element={<Projetos />} />
         <Route path="/projeto/:id" element={<ProjetosDados />} />
         <Route path='/DetalhesProjetos' element={<DetalhesProjetos/>}/>
+        <Route path='/Contato' element={<Contato/>}/>
       </Routes>
     </BrowserRouter>
   )

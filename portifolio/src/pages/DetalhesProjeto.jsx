@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import {ProjetosDados} from '../dados/ProjetosDados'
+import Contato from './Contato'
 
 export default function DetalhesProjetos(){
     return(
@@ -12,19 +13,19 @@ export default function DetalhesProjetos(){
         {ProjetosDados.map((projeto) => (
           <div key={projeto.id} className="card-projeto" >
 
-            <p>{projeto.titulo}</p>
-            <br />
-            <p>{projeto.objetivo}</p>
-            <br />
-            <p>{projeto.funcionalidades}</p>
-            <br />
-            <p>{projeto.aprendizado}</p>
-            <br />
-            <p>{projeto.melhorias}</p>
-            <br />
-           <p>{projeto.desafios}</p>
+            <p className='titulo-detalhe'>{projeto.titulo}</p>
+          
+            <p className='obje-detalhe'>{projeto.objetivo}</p>
+         
+            <p className='func-detalhe'> {projeto.funcionalidades}</p>
+            
+            <p className='aprendi-detalhe'>{projeto.aprendizado}</p>
+          
+            <p className='melhoria-detalhe'>{projeto.melhorias}</p>
+            
+           <p className='desafio-detalhe'>{projeto.desafios}</p>
              <br />
-             <p className="descricao-projeto">{projeto.descricaoCompleta}</p>
+             <p className="descricao-detalhe">{projeto.descricaoCompleta}</p>
          
            <div  className="imagem-projeto" >
             <img 
@@ -42,6 +43,11 @@ export default function DetalhesProjetos(){
                   Ver Projeto Online
                  </a>
                
+               <div className='div-github'>
+                <a href={projeto.linkGitHub}
+                target='_blanck'
+                real='nonereferrer'>Ver Github</a>
+               </div>
               </div>
             </div>
 
@@ -51,9 +57,10 @@ export default function DetalhesProjetos(){
       </div>
     </section>
   
-    <Link to="/" >
+    <Link className='link' to="/" >
         Voltar para o Inicio
       </Link>
+      <Link className='link' to ="/Contato"> Ver árear de contato</Link>
         </div>
     )
 }
