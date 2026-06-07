@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import{FaChevronDown} from 'react-icons/fa'
+import{ FaChevronDown } from 'react-icons/fa'
 
 export default function Home(){
 // 1. As consts que guardam os nomes das tecnologias

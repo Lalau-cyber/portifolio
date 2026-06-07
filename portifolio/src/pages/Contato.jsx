@@ -1,7 +1,8 @@
 import {useState} from 'react'
-import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaEnvelope, FaPaperPlane } from 'react-icons/fa'
+import emailjs from '@emailjs/browser'
 
-export default function Contato(){
+export default  function Contato(){
 
     //pegar dados do formulario
     const [nome, setNome] = useState('');
@@ -12,8 +13,9 @@ export default function Contato(){
     //feedbacks
     const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
+  const [enviado, setEnviado] = useState(false)
 
-    function handleSubmit(e)  {
+   async function handleSubmit(e)  {
         e.preventDefault(); // Impede o recarregamento da página
         setErro('');
         setSucesso('');
@@ -27,7 +29,7 @@ export default function Contato(){
             setErro("Por favor, informe um email")
             return;
         }
-        if(email.includes('@') || !email.includes('.')){
+        if(!email.includes('@') || !email.includes('.')){
             setErro("Por favor, informe um email valido")
             return;
         }
@@ -40,18 +42,38 @@ export default function Contato(){
             setErro("A mensagem não pode ser vazia")
             return;
         }
-        setSucesso(`Obrigada ${nome}! Sua mensagm sobre "${assunto}" foi enviada com sucesso`)
+        setEnviado(true)
+        
+    
+          try {
+            await emailjs.send(
+              'service_c2g6ugi',   
+              'template_325zoku',  
+        {
+          from_name: nome,
+          from_email: email,
+          subject: assunto,
+          message: mensagem,
+        },
+        'VqLjp4AXAXi32BpKV'   
+      )
 
+        setSucesso(`Obrigada ${nome}! Sua mensagm sobre "${assunto}" foi enviada com sucesso`)
         setNome('');
         setEmail('');
         setAssunto('');
         setMensagem('');
     }
-
+    catch(error){
+      setErro('Erro ao enviar mensagem. Tente novamente')
+    }finally{
+      setEnviado(false)
+    }
+   }
    return (
     <section style={{ padding: '40px 20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>Contato & Oportunidades</h2>
-      <p>Entre em contato para propostas profissionais, parcerias ou networking comercial.</p>
+      <h2 className='Hcontato'>Contato & Oportunidades</h2>
+      <p className='contato-descri'>Entre em contato para propostas profissionais, parcerias ou networking comercial.</p>
 
       <div className="container-contato" style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', marginTop: '20px' }}>
         
@@ -60,27 +82,29 @@ export default function Contato(){
           <h3>Canais Diretos</h3>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             
-            <li style={{ marginBottom: '15px' }}>
+            <li className='div-email' style={{ marginBottom: '15px' }}>
               <a href="mailto:laurinha.ss1305@gmail.com" className="link-contato" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit' }}>
-                <FaEnvelope size={24} style={{ color: '#db4437' }} />
-                <span>laurinha.ss1305@gmail.com</span>
+                <FaEnvelope size={24} className='faenvelope' />
+                <span className='meu-email'>laurinha.ss1305@gmail.com</span>
               </a>
             </li>
 
-            <li style={{ marginBottom: '15px' }}>
+            <li className='div-linkedin' style={{ marginBottom: '15px' }}>
               <a href="https://www.linkedin.com/in/laura-cristina-silva-souza-880811414/?trk=public-profile-join-page" target="_blank" rel="noreferrer" className="link-contato" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit' }}>
-                <FaLinkedin size={24} style={{ color: '#0a66c2' }} />
-                <span>LinkedIn Profissional</span>
+                <FaLinkedin size={24} className='falinkedin' />
+                <span className='meu-linkedin'>LinkedIn Profissional</span>
               </a>
             </li>
 
-            <li style={{ marginBottom: '15px' }}>
+            <li className='div-git' style={{ marginBottom: '15px' }}>
               <a href="https://github.com/Lalau-cyber" target="_blank" rel="noreferrer" className="link-contato" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit' }}>
-                <FaGithub size={24} style={{ color: '#24292e' }} />
-                <span>GitHub Técnico</span>
+                <FaGithub size={24} className='fagithb'/>
+                <span className='meu-git'>GitHub Técnico</span>
               </a>
             </li>
-
+            <div className='div-disponivel'>
+              <p className='dispo_p'>Disponivel para novas oportunidades</p>
+            </div>
           </ul>
         </div>
 
@@ -92,58 +116,59 @@ export default function Contato(){
           {erro && <p style={{ color: 'red', fontWeight: 'bold' }}>⚠️ {erro}</p>}
           {sucesso && <p style={{ color: 'green', fontWeight: 'bold' }}>✅ {sucesso}</p>}
 
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <form onSubmit={handleSubmit}  >
             
-            <div>
-              <label style={{ display: 'block', marginBottom: '5px' }}>Nome:</label>
+            <div className='div-nome-form'>
+              <label className='nome'>Nome:</label>
               <input 
                 type="text" 
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Seu nome ou empresa"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                className='input'
               />
             </div>
 
-            <div>
-              <label style={{ display: 'block', marginBottom: '5px' }}>E-mail:</label>
-              <input 
+            <div className='div-email-form'>
+              <label className='email'>E-mail:</label>
+              <input className='input'
                 type="text" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu-email@exemplo.com"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                
               />
             </div>
 
-            <div>
-              <label style={{ display: 'block', marginBottom: '5px' }}>Assunto:</label>
-              <input 
+            <div className='div-assunto'>
+              <label className='assunto'>Assunto:</label>
+              <input className='input-assunto'
                 type="text" 
                 value={assunto}
                 onChange={(e) => setAssunto(e.target.value)}
                 placeholder="Ex: Oportunidade de Emprego / Parceria"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+              
               />
             </div>
 
-            <div>
-              <label style={{ display: 'block', marginBottom: '5px' }}>Mensagem:</label>
-              <textarea 
+            <div className='div-mensagem'>
+              <label className='mensagem' >Mensagem:</label>
+              <textarea className='input-mensagem'
                 rows="4"
                 value={mensagem}
                 onChange={(e) => setMensagem(e.target.value)}
                 placeholder="Escreva os detalhes aqui..."
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', resize: 'vertical' }}
+               
               />
             </div>
 
-            <button 
+            <button className='btn-enviar'
               type="submit" 
               onClick={handleSubmit}
-              style={{ padding: '10px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+              disabled={enviado}
             >
-              Enviar Formulário
+              {enviado ? 'Enviando...' : 'Enviar Formulário'}
+              <FaPaperPlane className='FaPaperPlane'/>
             </button>
 
           </form>
